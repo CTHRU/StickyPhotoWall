@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/_your_user_home_dir_name_/.conky/sticky_photo_wall/autostart_sticky_photo_wall.sh
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Nam=Sticky Photo Wall
+Comment=Show a Sticky Photo Wall on the desktop
