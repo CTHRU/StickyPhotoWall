@@ -38,8 +38,8 @@ conky.config = {
 	draw_borders = false,
 	draw_graph_borders = false,
 	
-	lua_load = '/home/christoph/.conky/sticky_photo_wall/sticky_photo_wall.lua',
-	lua_startup_hook = 'conky_config /home/christoph/.conky/sticky_photo_wall/',
+	lua_load = '/home/_your_user_home_dir_name_/.conky/sticky_photo_wall/sticky_photo_wall.lua',
+	lua_startup_hook = 'conky_config /home/_your_user_home_dir_name_/.conky/sticky_photo_wall/',
 	lua_draw_hook_pre = 'conky_main',
 };
 

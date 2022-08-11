@@ -18,7 +18,6 @@ Sticky Photo Wall transforms your Linux desktop in an attractive photo wall with
 - [Installation](#installation)  
 - [Upgrading](#upgrading)
 - [Usage](#usage)  
-    - [Examples](#usage-examples)
 - [Release Notes](#release-notes)  
 - [Copyright and License](#copyright-and-license)
 
@@ -35,7 +34,7 @@ To use StickyPhotoWall, you need:
 
 ### Installation Procedure
 #### Step 1 - Install Conky
-Install [Conky](https://github.com/brndnmtthws/conky) using a package manager on your Linux OS or using the latest version from the [Conky website](https://github.com/brndnmtthws/conky).
+Install [Conky](https://github.com/brndnmtthws/conky) (`conky-all` package) using a package manager on your Linux OS or using the latest version from the [Conky website](https://github.com/brndnmtthws/conky).
 
 #### Step 2 - Download and Extract StickyPhotoWall
 - Go to the [Releases page][latest release] to download the source code of the latest StickyPhotoWall release.
@@ -43,22 +42,22 @@ Install [Conky](https://github.com/brndnmtthws/conky) using a package manager on
   the sources.
 - Save the tar.gz file with the sources on your system.
 - Create a folder `.conky/sticky_photo_wall` in your home directory.
-- Extract all contents of the tar.gz file to the `.conky/sticky_photo_wall` folder in the home directory of your system.
+- Extract all contents of main `StickyPhotoWall-[version x.y,z]` folder in the tar.gz file to the `.conky/sticky_photo_wall` folder in the home directory of your system.
 
 #### Step 3 - Prepare for first run
 - Open the `~/.conky/sticky_photo_wall` directory.
 - Open the file `sticky_photo_wall.conky` in that directory and replace the occurences of `_your_user_home_dir_name_` with your user home directory name.
 
 ```lua
-	lua_load = '/home/_your_user_home_dir_name_/.conky/sticky_photo_wall/sticky_photo_wall.lua',
-	lua_startup_hook = 'conky_config /home/_your_user_home_dir_name_/.conky/sticky_photo_wall/',
+lua_load = '/home/_your_user_home_dir_name_/.conky/sticky_photo_wall/sticky_photo_wall.lua',
+lua_startup_hook = 'conky_config /home/_your_user_home_dir_name_/.conky/sticky_photo_wall/',
 ```
 
 should be replaced with the code below (in this example the user home directory name is cthru)
 
 ```lua
-	lua_load = '/home/cthru/.conky/sticky_photo_wall/sticky_photo_wall.lua',
-	lua_startup_hook = 'conky_config /home/cthru/.conky/sticky_photo_wall/',
+lua_load = '/home/cthru/.conky/sticky_photo_wall/sticky_photo_wall.lua',
+lua_startup_hook = 'conky_config /home/cthru/.conky/sticky_photo_wall/',
 ```
 
 #### Step 4 - First run

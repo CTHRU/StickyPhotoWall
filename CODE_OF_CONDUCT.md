@@ -1,11 +1,14 @@
 # Code of Conduct
-
-## cthru's code of conduct tl;dr:
-
-    Be respectful of other people, respectfully ask people to stop if you are bothered, and if you can't resolve an issue, contact staff. If you are being a problem, it will be apparent and you'll be asked to leave.
-
 Based on previous excellent work by others, this is a living code of conduct. This code of conduct applies to all cthru spaces both online and offline.
 
+## cthru's code of conduct TL;DR  
+
+---
+
+Be respectful of other people, respectfully  ask people to stop if you are bothered, and if you can't resolve an issue, contact staff. If you are being a problem, it will be apparent and you'll be asked to leave.
+
+---
+  
 ## Contents
 
 * [Respect](#respect) 
