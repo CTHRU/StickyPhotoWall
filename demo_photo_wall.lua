@@ -38,9 +38,13 @@ function draw_demo_photo_wall(cc, photo_dir)
             cc: for crooked counterclockwise application (rotated to the left).
 
             Example: "pt-lg-cc" means portrait orientation, large size, skewed counterclockwise
+        tape: optional parameter to specify which tape image to use. Use one of the following options:
+            TAPE.RANDOM: (default) Use a random tape image.
+            TAPE.CLEAR: use the first tape image.
+            TAPE.CLEAR2: use the second tape image.
     ]]    
     demo_dir = photo_dir .. "demo/"
-    draw_sticky_photo(cc, demo_dir .. "Sticky.png", 10, 25, "ls-sm-cw")
+    draw_sticky_photo(cc, demo_dir .. "Sticky.png", 10, 25, "ls-sm-cw", TAPE.CLEAR)
     draw_sticky_photo(cc, demo_dir .. "Wall.png", 470, 0, "pt-sm-st")
-    draw_sticky_photo(cc, demo_dir .. "Photo.png", 240, 35, "ls-sm-cc")
+    draw_sticky_photo(cc, demo_dir .. "Photo.png", 240, 35, "ls-sm-cc", TAPE.CLEAR2)
 end

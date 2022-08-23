@@ -15,7 +15,6 @@ local COLORS = {
     BACKGROUND = { 0, 0, 0, 1 },
 }
 
---TODO: Test and update parameters for all formats
 local FORMAT_PARAMETERS = { 
     ["ls-lg-st"] = {width = 478, height = 298, angle = 0},
     ["ls-lg-cw"] = {width = 486, height = 308, angle = 1, offset_x = -1, offset_y = -1},
@@ -36,6 +35,15 @@ local FORMAT_PARAMETERS = {
     ["pt-sm-cw"] = {width = 144, height = 212, angle = 1, offset_x = -1, offset_y = -1},
     ["pt-sm-cc"] = {width = 144, height = 212, angle = -1, offset_x = -1, offset_y = -1},
 }
+
+TAPE = setmetatable({}, {
+	__index = {
+		RANDOM = 0,
+        CLEAR = 1,
+        CLEAR2 = 2
+	},
+	__newindex = function() end
+})
 
 local TAPE_WIDTH_CENTER = 50
 
@@ -223,10 +231,21 @@ function draw_frame(cc, x, y, format)
 end
 
 
---TODO: Use both tape images randomly.
 --TODO: Ameliorate tape visibility by changing opacity?
-function draw_tape(cc, x, y, format)
-    local image_filename = working_dir .. "resources/tape/TapeClear.png"
+function draw_tape(cc, x, y, format, tape)
+    tape = tape or TAPE.RANDOM
+    local image_filename = working_dir .. "resources/tape/TapeClear"
+ 
+    if tape == TAPE.RANDOM then
+        tape = math.random(1, 2)
+    end
+
+    if tape > 1 then
+        image_filename = image_filename .. tape .. ".png"
+    else
+        image_filename = image_filename .. ".png"
+    end 
+    
     local image = open_png_image(image_filename)
     if image == nil then return end
 
@@ -242,7 +261,7 @@ end
 
 
 --TODO: add functionality to auto select the most appropriate frame orientation
-function draw_sticky_photo(cc, photo_filename, x, y, format)
+function draw_sticky_photo(cc, photo_filename, x, y, format, tape)
     x = x or 0
     y = y or 0
 
@@ -269,7 +288,7 @@ function draw_sticky_photo(cc, photo_filename, x, y, format)
     draw_shadow(cc, x, y, format)
     draw_photo(cc, photo_surface, x, y, format)
     draw_frame(cc, x, y, format)
-    draw_tape(cc, x, y, format)
+    draw_tape(cc, x, y, format, tape)
 end
 
 
@@ -277,6 +296,8 @@ function conky_config(config_working_directory)
     print("conky_config - Setting working directory to " .. config_working_directory)
     working_dir = config_working_directory
     photo_dir = working_dir .. "/resources/photos/"
+
+    math.randomseed(os.time())
 end
 
 
