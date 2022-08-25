@@ -45,6 +45,17 @@ TAPE = setmetatable({}, {
 	__newindex = function() end
 })
 
+CROP = setmetatable({}, {
+	__index = {
+		CENTER = 0,
+        TOP = 1,
+        BOTTOM = 2,
+        LEFT = 1,
+        RIGHT = 2
+	},
+	__newindex = function() end
+})
+
 local TAPE_WIDTH_CENTER = 50
 
 local working_dir
@@ -92,9 +103,10 @@ end
 --[[
     Resize and scale the horizontal oriented image to the frame format size.
 ]]
--- TODO: Add functionality to resize the image at a specific position (horizontal: left, right, center - vertical: top, bottom, center)
-function resize_image(image, format)
-    print("resize_image -Resizing image")
+function resize_image(image, format, crop)
+    print("resize_image - Resizing image")
+
+    crop = crop or CROP.CENTER
 
     local straight_format = format:sub(0, format:len() - 2) .. "st"
 
@@ -116,15 +128,39 @@ function resize_image(image, format)
     -- Scale and resize the image to match the aspect ratio of the frame
     local scale_width
     local scale_height
+    local x_offset = 0
+    local y_offset = 0
     
     if (frame_aspect_ratio > image_aspect_ratio) then
-        -- Image is too high, resize bottom
+        -- Image is too high, crop vertically
         scale_width = frame_width / image_width
         scale_height = frame_width / image_width
+        
+        y_offset = (frame_height / scale_height) - image_height
+
+        if (crop == CROP.TOP) then
+            -- Calculated Y offset value is already correct
+        elseif (crop == CROP.BOTTOM) then
+            y_offset = 0
+        else
+            -- Default crop top and bottom (center image in frame)
+            y_offset = y_offset / 2
+        end
     elseif (frame_aspect_ratio < image_aspect_ratio) then
-        -- Image is too wide, resize right
+        -- Image is too wide, crop horizontally
         scale_width = frame_height / image_height
         scale_height = frame_height / image_height
+
+        x_offset = (frame_width / scale_width) - image_width 
+
+        if (crop == CROP.LEFT) then
+            -- Calculated X offset value is already correct
+        elseif (crop == CROP.RIGHT) then
+            x_offset = 0
+        else
+            -- Default crop left and right (center image in frane)
+            x_offset = x_offset / 2
+        end
     else
         -- Image aspect ratio matches frame, scale only
         scale_width = frame_width / image_width
@@ -133,7 +169,7 @@ function resize_image(image, format)
 
     cairo_scale(resized_image_context, scale_width, scale_height)    
     cairo_set_source_rgba(resized_image_context, unpack(COLORS.BACKGROUND))
-    cairo_set_source_surface(resized_image_context, image, 0, 0)
+    cairo_set_source_surface(resized_image_context, image, x_offset, y_offset)
     cairo_paint(resized_image_context)
 
     cairo_destroy(resized_image_context)
@@ -149,7 +185,7 @@ function resize_image(image, format)
 end
 
 
-function frame_image(image, format)
+function frame_image(image, format, crop)
     print("frame_image - Framing image")
 
     local frame_width = FORMAT_PARAMETERS[format].width
@@ -164,7 +200,7 @@ function frame_image(image, format)
     local framed_image_context = cairo_create(framed_image)
 
     -- resize and scale the image to the frame format size
-    local resized_image = resize_image(image, format)
+    local resized_image = resize_image(image, format, crop)
 
     local image_width = cairo_image_surface_get_width(resized_image)
     local image_height = cairo_image_surface_get_height(resized_image)
@@ -197,14 +233,14 @@ function frame_image(image, format)
 end
 
 
-function draw_photo(cc, image, x, y, format)
+function draw_photo(cc, image, x, y, format, crop)
     if image == nil then return end
 
     local offset_x = FORMAT_PARAMETERS[format].offset_x or 0
     local offset_y = FORMAT_PARAMETERS[format].offset_y or 0
 
     -- Fit the image to the frame
-    local framed_image = frame_image(image, format)
+    local framed_image = frame_image(image, format, crop)
 
     print("draw_photo - Displaying photo")
 
@@ -261,7 +297,7 @@ end
 
 
 --TODO: add functionality to auto select the most appropriate frame orientation
-function draw_sticky_photo(cc, photo_filename, x, y, format, tape)
+function draw_sticky_photo(cc, photo_filename, x, y, format, tape, crop)
     x = x or 0
     y = y or 0
 
@@ -286,7 +322,7 @@ function draw_sticky_photo(cc, photo_filename, x, y, format, tape)
     end
 
     draw_shadow(cc, x, y, format)
-    draw_photo(cc, photo_surface, x, y, format)
+    draw_photo(cc, photo_surface, x, y, format, crop)
     draw_frame(cc, x, y, format)
     draw_tape(cc, x, y, format, tape)
 end

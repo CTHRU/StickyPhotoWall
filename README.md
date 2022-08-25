@@ -42,7 +42,7 @@ Install [Conky](https://github.com/brndnmtthws/conky) (`conky-all` package) usin
   the sources.
 - Save the tar.gz file with the sources on your system.
 - Create a folder `.conky/sticky_photo_wall` in your home directory.
-- Extract all contents of main `StickyPhotoWall-[version x.y,z]` folder in the tar.gz file to the `.conky/sticky_photo_wall` folder in the home directory of your system.
+- Extract all contents of main `StickyPhotoWall-[version x.y.z]` folder in the tar.gz file to the `.conky/sticky_photo_wall` folder in the home directory of your system.
 
 #### Step 3 - Prepare for first run
 - Open the `~/.conky/sticky_photo_wall` directory.
