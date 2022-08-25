@@ -42,6 +42,16 @@ function draw_demo_photo_wall(cc, photo_dir)
             TAPE.RANDOM: (default) Use a random tape image.
             TAPE.CLEAR: use the first tape image.
             TAPE.CLEAR2: use the second tape image.
+        crop: optional parameter to specify which part of the image to crop when the resized image is 
+        wider or higher than the frame. By default, cropping will be around the center of the image.
+        To crop images that are wider than the frame after resizing, use:
+            CROP.CENTER: (default) Crop the image around the center (crop left and right equally).
+            CROP.LEFT: Crop the image left.
+            CROP.RIGHT: Crop the image right.
+        To crop images that are higher than the frame after resizing, use:
+            CROP.CENTER: (default) Crop the image around the center (crop top and bottom equally).
+            CROP.TOP: Crop the top of the image.
+            CROP.BOTTOM: Crop the bottom of the image.
     ]]    
     demo_dir = photo_dir .. "demo/"
     draw_sticky_photo(cc, demo_dir .. "Sticky.png", 10, 25, "ls-sm-cw", TAPE.CLEAR)
