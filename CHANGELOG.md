@@ -3,6 +3,11 @@
 All notable changes to this project are documented in this file. 
 
 ## Release Notes
+### Version 1.3.0
+#### Solved issues
+- Updated code to work with conky version 1.12+ that uses a more recent Lua version.
+- Solved a nil error from Lua due to using deprecated call to unpack(). Changed to table.unpack().
+
 ### Version 1.2.0
 #### New features and changes
 - Added support for cropping photos that are wider or higher than the frame. For documentation, please refer to the new optional crop parameter of draw_sticky_photo() explained in [demo_photo_wall.lua](./demo_photo_wall.lua). Closes #3.
