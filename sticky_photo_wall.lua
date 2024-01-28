@@ -92,7 +92,7 @@ function draw_shadow(cc, x, y, format)
     if image == nil then return end
 
     print("draw_shadow - Displaying " .. image_filename)    
-    cairo_set_source_rgba(cc, unpack(COLORS.BACKGROUND))
+    cairo_set_source_rgba(cc, table.unpack(COLORS.BACKGROUND))
     cairo_set_source_surface(cc, image, 0 + x, 21 + y)
     cairo_paint(cc)
 
@@ -168,7 +168,7 @@ function resize_image(image, format, crop)
     end
 
     cairo_scale(resized_image_context, scale_width, scale_height)    
-    cairo_set_source_rgba(resized_image_context, unpack(COLORS.BACKGROUND))
+    cairo_set_source_rgba(resized_image_context, table.unpack(COLORS.BACKGROUND))
     cairo_set_source_surface(resized_image_context, image, x_offset, y_offset)
     cairo_paint(resized_image_context)
 
@@ -212,7 +212,7 @@ function frame_image(image, format, crop)
         cairo_translate(framed_image_context, -(image_width / 2.0), -(image_height / 2.0))
     end
 
-    cairo_set_source_rgba(framed_image_context, unpack(COLORS.BACKGROUND))
+    cairo_set_source_rgba(framed_image_context, table.unpack(COLORS.BACKGROUND))
     cairo_set_source_surface(
         framed_image_context, 
         resized_image, 
@@ -244,7 +244,7 @@ function draw_photo(cc, image, x, y, format, crop)
 
     print("draw_photo - Displaying photo")
 
-    cairo_set_source_rgba(cc, unpack(COLORS.BACKGROUND))
+    cairo_set_source_rgba(cc, table.unpack(COLORS.BACKGROUND))
     cairo_set_source_surface(cc, framed_image, 4 + x + offset_x, 21 + y + offset_y)
     cairo_paint(cc)
 
@@ -259,7 +259,7 @@ function draw_frame(cc, x, y, format)
     if image == nil then return end
 
     print("draw_frame - Displaying " .. image_filename)    
-    cairo_set_source_rgba(cc, unpack(COLORS.BACKGROUND))
+    cairo_set_source_rgba(cc, table.unpack(COLORS.BACKGROUND))
     cairo_set_source_surface(cc, image, 3 + x, 20 + y)
     cairo_paint(cc)
 
@@ -288,7 +288,7 @@ function draw_tape(cc, x, y, format, tape)
     local width = FORMAT_PARAMETERS[format].width
 
     print("draw_tape - Displaying " .. image_filename)    
-    cairo_set_source_rgba(cc, unpack(COLORS.BACKGROUND))
+    cairo_set_source_rgba(cc, table.unpack(COLORS.BACKGROUND))
     cairo_set_source_surface(cc, image, x + (width / 2) - TAPE_WIDTH_CENTER, 0 + y)
     cairo_paint(cc)
 
